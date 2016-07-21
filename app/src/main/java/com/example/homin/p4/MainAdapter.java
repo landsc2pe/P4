@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.homin.p4.base.BaseAdapter;
-import com.example.homin.p4.base.Util.LogTag;
+import com.example.homin.p4.base.util.LogTag;
 
 import java.util.List;
 

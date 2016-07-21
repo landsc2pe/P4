@@ -29,8 +29,9 @@ public class DesignTab1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.design_tab1, container, false);
-        view.findViewById(R.id.nested_scroll);
 
         return view;
     }
+
+
 }

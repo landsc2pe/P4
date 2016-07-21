@@ -1,4 +1,4 @@
-package com.example.homin.p4.base.Util;
+package com.example.homin.p4.base.util;
 
 /**
  * Created by HOMIN on 2016-07-20.

@@ -11,8 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 
 import com.example.homin.p4.base.BaseAdapter;
-import com.example.homin.p4.base.Util.ClickEvent;
-import com.example.homin.p4.base.Util.ClickEventID;
+import com.example.homin.p4.base.util.ClickEvent;
+import com.example.homin.p4.base.util.ClickEventID;
 import com.example.homin.p4.design.DesignActivity;
 import com.example.homin.p4.notification.NotiFragment;
 import com.example.homin.p4.webview.WebView;
