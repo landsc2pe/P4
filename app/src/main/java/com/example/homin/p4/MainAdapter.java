@@ -39,7 +39,7 @@ public class MainAdapter extends BaseAdapter {
         if(LogTag.DEBUG) Log.d(TAG, "int"+po);
         if (po == 0) {
             holder.textView.setBackgroundColor(viewGroup.getResources().
-                    getColor(R.color.colorBlue));
+                    getColor(R.color.colorOrange));
         }else{
             holder.textView.setBackgroundColor(viewGroup.getResources().getColor(R.color.colorPrimary));
         }

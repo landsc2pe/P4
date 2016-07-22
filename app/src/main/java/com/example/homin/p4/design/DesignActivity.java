@@ -4,6 +4,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.homin.p4.R;
+import com.example.homin.p4.base.util.ClickEvent;
+import com.example.homin.p4.base.util.ClickEventID;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by HOMIN on 2016-07-20.
@@ -30,13 +36,24 @@ public class DesignActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle drawerToggle;
+    private BottomSheetBehavior<View> mBottomSheetBehavior;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.design_drawer);
 
+        EventBus.getDefault().register(this);
+
         init();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        EventBus.getDefault().unregister(this);
     }
 
     private void init() {
@@ -45,6 +62,7 @@ public class DesignActivity extends AppCompatActivity {
         setViewPager();
         setCollapsingToolbar();
         setFloatingActionButton();
+        setBottomSheet();
 
     }
 
@@ -70,7 +88,7 @@ public class DesignActivity extends AppCompatActivity {
 
         int tabCount = 3;
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(new DesignViewPagerAdapter(getSupportFragmentManager(), DesignActivity.this, tabCount));
+        viewPager.setAdapter(new DesignViewPagerAdapter(getSupportFragmentManager(), DesignActivity.this, tabCount, mBottomSheetBehavior));
 
 
     }
@@ -97,6 +115,27 @@ public class DesignActivity extends AppCompatActivity {
         });
     }
 
+    private void setBottomSheet() {
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior.setPeekHeight(300);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    mBottomSheetBehavior.setPeekHeight(0);
+                }
+            }
+
+            @Override
+            public void onSlide(View bottomSheet, float slideOffset) {
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,6 +158,20 @@ public class DesignActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+    }
+
+    @Subscribe
+    public void onEvent(ClickEvent event) {
+        if (event.getId() == ClickEventID.ITEM_BOTTOM_ONE) {
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else if (event.getId() == ClickEventID.ITEM_BOTTOM_TWO) {
+            mBottomSheetBehavior.setPeekHeight(300);
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else if (event.getId() == ClickEventID.ITEM_BOTTOM_THREE) {
+            mBottomSheetBehavior.setHideable(true);
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        }
+
     }
 
 }

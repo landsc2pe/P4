@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-
         init();
     }
 
@@ -41,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setRecyclerView();
         setClickListener();
     }
+
 
     private void makeActionBar() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

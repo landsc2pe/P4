@@ -2,6 +2,7 @@ package com.example.homin.p4.design;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -27,11 +28,13 @@ public class DesignViewPagerAdapter extends FragmentStatePagerAdapter {
     private Fragment[] cacheFragment;
     private int imageResId[] = {R.drawable.ic_one, R.drawable.ic_two, R.drawable.ic_three};
     private Context context;
+    private BottomSheetBehavior bottomSheetBehavior;
 
-    public DesignViewPagerAdapter(FragmentManager fm, Context context, int numOfTabs) {
+    public DesignViewPagerAdapter(FragmentManager fm, Context context, int numOfTabs, BottomSheetBehavior bottomSheetBehavior) {
         super(fm);
         this.numOfTabs = numOfTabs;
         this.context = context;
+        this.bottomSheetBehavior = bottomSheetBehavior;
 
         cacheFragment = new Fragment[numOfTabs];
     }
@@ -49,10 +52,13 @@ public class DesignViewPagerAdapter extends FragmentStatePagerAdapter {
         if (cacheFragment[position] == null) {
             Log.d(TAG, "cache miss.");
             if (position == 0) {
-                fragment = new DesignTab1();
+                fragment = DesignTab1.newInstance();
             }
             else if (position == 1) fragment = new DesignTab2();
-            else if (position == 2) fragment = new DesignTab3();
+            else if
+                    (position == 2) {
+                fragment = new DesignTab3();
+            }
 
             cacheFragment[position] = fragment;
         } else {
