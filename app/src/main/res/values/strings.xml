@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
 
 
-    <string name="itemContents">1 Test 2 EditText 3 BottomSheet</string>
+    <string name="itemContents">"1 Test           2 EditText 3       BottomSheet"</string>
     <string name="itemContents1">1.Test</string>
     <string name="itemContents2">2.EditText</string>
     <string name="itemContents3">3.BottomSheet</string>

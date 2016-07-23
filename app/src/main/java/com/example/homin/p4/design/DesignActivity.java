@@ -1,5 +1,6 @@
 package com.example.homin.p4.design;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,7 @@ import android.view.View;
 import com.example.homin.p4.R;
 import com.example.homin.p4.base.util.ClickEvent;
 import com.example.homin.p4.base.util.ClickEventID;
+import com.example.homin.p4.base.util.LogTag;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,7 +32,7 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * Created by HOMIN on 2016-07-20.
  */
-public class DesignActivity extends AppCompatActivity {
+public class DesignActivity extends AppCompatActivity implements BottomSheetNaming {
     static final String TAG = DesignActivity.class.getSimpleName();
     private Toolbar mToolBar;
     private CollapsingToolbarLayout mCollapsingToolBar;
@@ -46,6 +49,7 @@ public class DesignActivity extends AppCompatActivity {
 
         EventBus.getDefault().register(this);
 
+        resolveBundleAndIntent(savedInstanceState);
         init();
     }
 
@@ -64,6 +68,17 @@ public class DesignActivity extends AppCompatActivity {
         setFloatingActionButton();
         setBottomSheet();
 
+    }
+
+    void resolveBundleAndIntent(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        if(intent != null) {
+            if(LogTag.DEBUG) Log.d(TAG, "intent : " + intent);
+            if(LogTag.DEBUG) Log.d(TAG, "string : " + intent.getStringExtra("key"));
+            Bundle bundle = intent.getExtras();
+            if(LogTag.DEBUG) Log.d(TAG, "bundle : " + bundle);
+            if(LogTag.DEBUG) Log.d(TAG, "int : " + bundle.getInt("int"));
+        }
     }
 
     private void setToolBar() {
@@ -174,4 +189,13 @@ public class DesignActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void showBottomSheet() {
+        // TODO: 2016-07-23 show bottom sheet
+    }
+
+    @Override
+    public void dismissBottomSheet() {
+        // TODO: 2016-07-23 dismiss bottom sheet
+    }
 }

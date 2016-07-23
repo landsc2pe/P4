@@ -108,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
     private void setClickInfo(ClickEvent event) {
         if (event.getId() == ClickEventID.ITEM_LIST_ONE) {
             Intent mIntent = new Intent(getApplicationContext(), DesignActivity.class);
+            Bundle args = new Bundle();
+            args.putInt("int", -1);
+            mIntent.putExtras(args);
+            mIntent.putExtra("key", "jjjj");
             startActivity(mIntent);
 
         } else if (event.getId() == ClickEventID.ITEM_LIST_TWO) {

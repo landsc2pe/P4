@@ -13,6 +13,7 @@ import com.example.homin.p4.R;
 /**
  * Created by HOMIN on 2016-07-20.
  */
+// TODO: 2016-07-23 callApp(javascript calls java method), callWeb(java calls javascript method)
 public class WebView extends Fragment {
     public static final String TAG = WebView.class.getSimpleName();
     private android.webkit.WebView myWebView;
@@ -40,6 +41,7 @@ public class WebView extends Fragment {
     private void setWebView() {
         myWebView.getSettings().setLoadsImagesAutomatically(true);
         myWebView.getSettings().setJavaScriptEnabled(true);
+        myWebView.getSettings().setDomStorageEnabled(true);
         myWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         myWebView.setWebViewClient(new MyBrowser());
         myWebView.loadUrl("http://www.naver.com");
@@ -52,4 +54,15 @@ public class WebView extends Fragment {
             return true;
         }
     }
+    
+//    void onBackPressed() {
+//        if(myWebView != null && myWebView.canGoBack()) {
+//            myWebView.goBack();
+//
+//            myWebView.canGoBackOrForward();
+//            myWebView.goBackOrForward();
+//        } else {
+//            // TODO: 2016-07-23 dispatch the backkey event.
+//        }
+//    }
 }

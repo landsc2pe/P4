@@ -9,7 +9,6 @@ import android.widget.TextView;
  * Created by HOMIN on 2016-07-20.
  */
 public class ViewHolder extends RecyclerView.ViewHolder {
-
     private final LinearLayout textViewContainer;
     public TextView textView;
 

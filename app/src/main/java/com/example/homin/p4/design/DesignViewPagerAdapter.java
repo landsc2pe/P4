@@ -29,8 +29,20 @@ public class DesignViewPagerAdapter extends FragmentStatePagerAdapter {
     private int imageResId[] = {R.drawable.ic_one, R.drawable.ic_two, R.drawable.ic_three};
     private Context context;
     private BottomSheetBehavior bottomSheetBehavior;
+    BottomSheetNaming naming;
 
     public DesignViewPagerAdapter(FragmentManager fm, Context context, int numOfTabs, BottomSheetBehavior bottomSheetBehavior) {
+        super(fm);
+        this.numOfTabs = numOfTabs;
+        this.context = context;
+        this.bottomSheetBehavior = bottomSheetBehavior;
+
+        cacheFragment = new Fragment[numOfTabs];
+    }
+
+    public DesignViewPagerAdapter(FragmentManager fm, Context context, int numOfTabs,
+                                  BottomSheetBehavior bottomSheetBehavior,
+                                  BottomSheetNaming naming) {
         super(fm);
         this.numOfTabs = numOfTabs;
         this.context = context;
