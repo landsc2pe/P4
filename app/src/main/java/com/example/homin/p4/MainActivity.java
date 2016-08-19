@@ -14,7 +14,9 @@ import com.example.homin.p4.base.BaseAdapter;
 import com.example.homin.p4.base.util.ClickEvent;
 import com.example.homin.p4.base.util.ClickEventID;
 import com.example.homin.p4.design.DesignActivity;
+import com.example.homin.p4.explorer.ExplorerFragment;
 import com.example.homin.p4.notification.NotiFragment;
+import com.example.homin.p4.treeview.TreeView;
 import com.example.homin.p4.webview.WebView;
 
 import java.util.ArrayList;
@@ -97,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         setClickInfo(new ClickEvent(ClickEventID.ITEM_LIST_THREE));
                         break;
+                    case 3:
+                        setClickInfo(new ClickEvent(ClickEventID.ITEM_LIST_FOUR));
+                        break;
+                    case 4:
+                        setClickInfo(new ClickEvent(ClickEventID.ITEM_LIST_FIVE));
+                        break;
 
                     default:
                         Snackbar.make(getCurrentFocus(), "It`s not ready yet", Snackbar.LENGTH_SHORT).show();
@@ -120,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.main_container, notiFragment, NotiFragment.TAG);
             fragmentTransaction.addToBackStack(NotiFragment.TAG);
             fragmentTransaction.commit();
+
         } else if (event.getId() == ClickEventID.ITEM_LIST_THREE) {
             Fragment webViewFragment = new WebView();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -127,6 +136,19 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.addToBackStack(WebView.TAG);
             fragmentTransaction.commit();
 
+        } else if (event.getId() == ClickEventID.ITEM_LIST_FOUR) {
+            Fragment explorerFragment = new ExplorerFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.main_container, explorerFragment, ExplorerFragment.TAG);
+            fragmentTransaction.addToBackStack(ExplorerFragment.TAG);
+            fragmentTransaction.commit();
+
+        } else if (event.getId() == ClickEventID.ITEM_LIST_FIVE) {
+            Fragment treeView = new TreeView();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.main_container, treeView, ExplorerFragment.TAG);
+            fragmentTransaction.addToBackStack(ExplorerFragment.TAG);
+            fragmentTransaction.commit();
         }
 
     }
@@ -138,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.drawer_setting_meun, menu);
         return true;
     }
-
-
 
 
 }

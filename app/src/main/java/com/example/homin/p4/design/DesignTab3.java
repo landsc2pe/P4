@@ -88,10 +88,10 @@ public class DesignTab3 extends Fragment {
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.button_1:
-                        if(naming != null) {
-                            naming.showBottomSheet();
-                        }
-//                        EventBus.getDefault().post(new ClickEvent(ClickEventID.ITEM_BOTTOM_ONE));
+//                        if(naming != null) {
+//                            naming.showBottomSheet();
+//                        }
+                        EventBus.getDefault().post(new ClickEvent(ClickEventID.ITEM_BOTTOM_ONE));
                         break;
 
                 }

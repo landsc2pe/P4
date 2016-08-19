@@ -74,22 +74,22 @@ public class DesignActivity extends AppCompatActivity implements BottomSheetNami
         Intent intent = getIntent();
         if(intent != null) {
             if(LogTag.DEBUG) Log.d(TAG, "intent : " + intent);
-            if(LogTag.DEBUG) Log.d(TAG, "string : " + intent.getStringExtra("key"));
-            Bundle bundle = intent.getExtras();
-            if(LogTag.DEBUG) Log.d(TAG, "bundle : " + bundle);
-            if(LogTag.DEBUG) Log.d(TAG, "int : " + bundle.getInt("int"));
-        }
-    }
+    if(LogTag.DEBUG) Log.d(TAG, "string : " + intent.getStringExtra("key"));
+    Bundle bundle = intent.getExtras();
+    if(LogTag.DEBUG) Log.d(TAG, "bundle : " + bundle);
+    if(LogTag.DEBUG) Log.d(TAG, "int : " + bundle.getInt("int"));
+}
+}
 
-    private void setToolBar() {
+private void setToolBar() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
         upArrow.setColorFilter(getResources().getColor(R.color.colorToolbar), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    }
+        }
 
     private void setNavigationDrawer() {
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
