@@ -1,4 +1,4 @@
-package com.example.homin.p4.okhttp;
+package com.example.homin.p4.rest.retrofit;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by HOMIN on 2016-08-07.
  */
-public class OkHttpTest extends Fragment {
+public class RetrofitTest extends Fragment {
 
     @Nullable
     @Override

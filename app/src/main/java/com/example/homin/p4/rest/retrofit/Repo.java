@@ -1,4 +1,4 @@
-package com.example.homin.p4.okhttp;
+package com.example.homin.p4.rest.retrofit;
 
 /**
  * Created by HOMIN on 2016-08-07.

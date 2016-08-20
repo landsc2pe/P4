@@ -1,4 +1,4 @@
-package com.example.homin.p4.okhttp;
+package com.example.homin.p4.rest.retrofit;
 
 import java.util.List;
 
