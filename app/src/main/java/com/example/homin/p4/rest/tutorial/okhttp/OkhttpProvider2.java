@@ -1,4 +1,4 @@
-package com.example.homin.p4.rest.okhttp;
+package com.example.homin.p4.rest.tutorial.okhttp;
 
 /**
  * Created by jayjay on 2016. 8. 20..

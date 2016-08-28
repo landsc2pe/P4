@@ -1,4 +1,4 @@
-package com.example.homin.p4.rest.okhttp;
+package com.example.homin.p4.rest.tutorial.okhttp;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;

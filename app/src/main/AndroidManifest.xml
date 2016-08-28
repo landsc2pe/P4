@@ -23,8 +23,8 @@
             android:name=".design.DesignActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".test.TestActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".rest.RestActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

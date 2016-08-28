@@ -3,6 +3,7 @@ package com.example.homin.p4.webview;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,23 @@ public class WebView extends Fragment {
         myWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         myWebView.setWebViewClient(new MyBrowser());
         myWebView.loadUrl("http://www.naver.com");
+        myWebView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyEvent.getAction()!=KeyEvent.ACTION_DOWN)
+                    return true;
+
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (myWebView.canGoBack()) {
+                        myWebView.goBack();
+                    } else {
+                        (getActivity()).onBackPressed();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private class MyBrowser extends WebViewClient {

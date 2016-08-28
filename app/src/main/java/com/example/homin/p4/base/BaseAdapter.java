@@ -2,8 +2,6 @@ package com.example.homin.p4.base;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.example.homin.p4.ViewHolder;
-
 /**
  * Created by HOMIN on 2016-07-20.
  */

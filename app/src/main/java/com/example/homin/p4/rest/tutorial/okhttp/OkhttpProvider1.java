@@ -1,4 +1,4 @@
-package com.example.homin.p4.rest.okhttp;
+package com.example.homin.p4.rest.tutorial.okhttp;
 
 import com.example.homin.p4.base.util.LogTag;
 import com.facebook.stetho.okhttp3.StethoInterceptor;

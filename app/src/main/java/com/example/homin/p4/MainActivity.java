@@ -14,9 +14,8 @@ import com.example.homin.p4.base.BaseAdapter;
 import com.example.homin.p4.base.util.ClickEvent;
 import com.example.homin.p4.base.util.ClickEventID;
 import com.example.homin.p4.design.DesignActivity;
-import com.example.homin.p4.explorer.ExplorerFragment;
 import com.example.homin.p4.notification.NotiFragment;
-import com.example.homin.p4.treeview.TreeView;
+import com.example.homin.p4.rest.RestActivity;
 import com.example.homin.p4.webview.WebView;
 
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         itemList.add("Design Support Library");
         itemList.add("Notification");
         itemList.add("WebView");
-        itemList.add("Test");
+        itemList.add("Http Communicate");
         itemList.add("Test");
         itemList.add("Test");
         itemList.add("Test");
@@ -115,12 +114,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void setClickInfo(ClickEvent event) {
         if (event.getId() == ClickEventID.ITEM_LIST_ONE) {
-            Intent mIntent = new Intent(getApplicationContext(), DesignActivity.class);
+            Intent intent = new Intent(getApplicationContext(), DesignActivity.class);
             Bundle args = new Bundle();
             args.putInt("int", -1);
-            mIntent.putExtras(args);
-            mIntent.putExtra("key", "jjjj");
-            startActivity(mIntent);
+            intent.putExtras(args);
+            intent.putExtra("key", "jjjj");
+            startActivity(intent);
 
         } else if (event.getId() == ClickEventID.ITEM_LIST_TWO) {
             Fragment notiFragment = new NotiFragment();
@@ -137,18 +136,10 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
 
         } else if (event.getId() == ClickEventID.ITEM_LIST_FOUR) {
-            Fragment explorerFragment = new ExplorerFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.main_container, explorerFragment, ExplorerFragment.TAG);
-            fragmentTransaction.addToBackStack(ExplorerFragment.TAG);
-            fragmentTransaction.commit();
+            Intent intent = new Intent(getApplicationContext(), RestActivity.class);
+            startActivity(intent);
 
         } else if (event.getId() == ClickEventID.ITEM_LIST_FIVE) {
-            Fragment treeView = new TreeView();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.main_container, treeView, ExplorerFragment.TAG);
-            fragmentTransaction.addToBackStack(ExplorerFragment.TAG);
-            fragmentTransaction.commit();
         }
 
     }
