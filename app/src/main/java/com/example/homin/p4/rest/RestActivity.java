@@ -9,7 +9,11 @@ import android.util.Log;
 
 import com.example.homin.p4.R;
 import com.example.homin.p4.base.util.LogTag;
+import com.example.homin.p4.rest.pojo.Child;
 import com.example.homin.p4.rest.pojo.RestData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -26,12 +30,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestActivity extends AppCompatActivity {
     public static final String TAG = RestActivity.class.getSimpleName();
     private RecyclerView recyclerView;
-    private RestData restData;
+    private List<Child> restData;
+    private List<RestPojo> restPojoList;
+    private RestAdapter restAdapter;
+    private RestService service;
+    private Retrofit retrofit;
+    private String restAfter;
+    private Call<RestData> call;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rest_activity);
+        restPojoList = new ArrayList<>();
 
         init();
     }
@@ -43,19 +54,53 @@ public class RestActivity extends AppCompatActivity {
 //        setOkHttp();
     }
 
+
     private void setViews() {
-        setRecyclerView();
         setToolBar();
     }
 
     private void setRecyclerView() {
+        restAdapter = new RestAdapter(restPojoList, getApplicationContext());
         recyclerView = (RecyclerView) findViewById(R.id.rest_activity_recyclerview);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(restAdapter);
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
+            public int curSize;
 
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                curSize = restAdapter.getItemCount();
+                if(LogTag.DEBUG)Log.d(TAG, restAfter);
+                call = service.getRestPojo(restAfter, 5);
+                if(LogTag.DEBUG) Log.d(TAG, "url : " + call.request().url());
+                call.enqueue(new Callback<RestData>() {
+                    @Override
+                    public void onResponse(Call<RestData> call, Response<RestData> response) {
+                        if(LogTag.DEBUG)Log.d(TAG, ""+curSize);
+                        restAfter = response.body().getData().getAfter();
+                        if(LogTag.DEBUG)Log.d(TAG, restAfter);
+                        restData =  response.body().getData().getChildren();
+                        List<RestPojo> pojos = new ArrayList<>();
+                        for (Child data : restData) {
+                            pojos.add(new RestPojo(data.getData().getTitle(), data.getData()
+                                    .getAuthor(), data.getData().getSubreddit(), data.getData()
+                                    .getScore(), data.getData().getNumComments(), data.getData().getThumbnail()));
+                        }
+                        restPojoList.addAll(pojos);
+                        restAdapter.notifyItemRangeInserted(curSize, restData.size());
+                        if(LogTag.DEBUG)Log.d(TAG, ""+curSize);
 
+                    }
 
+                    @Override
+                    public void onFailure(Call<RestData> call, Throwable t) {
+                        if (LogTag.DEBUG) Log.d(TAG, "failed");
+
+                    }
+                });
+            }
+        });
     }
 
     private void setToolBar() {
@@ -63,22 +108,24 @@ public class RestActivity extends AppCompatActivity {
     }
 
     private void setRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.reddit.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        RestService service = retrofit.create(RestService.class);
-        Call<RestData> call = service.getRestPojo("", "");
-
+        service = retrofit.create(RestService.class);
+        call = service.getRestPojo("", 5);
         call.enqueue(new Callback<RestData>() {
             @Override
             public void onResponse(Call<RestData> call, Response<RestData> response) {
                 if (response != null && response.body() != null) {
-                    restData = response.body();
-                    recyclerView.setAdapter(new RestAdapter(restData, getApplicationContext()));
-                    if (LogTag.DEBUG) Log.d(TAG, "getKind : " + restData.getKind());
-                    if (LogTag.DEBUG)
-                        Log.d(TAG, "size : " + restData.getData().getChildren().size());
+                    restAfter = response.body().getData().getAfter();
+                    restData = response.body().getData().getChildren();
+                    for (Child data : restData) {
+                        restPojoList.add(new RestPojo(data.getData().getTitle(), data.getData()
+                                .getAuthor(), data.getData().getSubreddit(), data.getData()
+                                .getScore(), data.getData().getNumComments(), data.getData().getThumbnail()));
+                    }
+                    setRecyclerView();
                 }
             }
 

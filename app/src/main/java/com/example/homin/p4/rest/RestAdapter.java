@@ -10,17 +10,18 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.homin.p4.R;
-import com.example.homin.p4.rest.pojo.RestData;
+
+import java.util.List;
 
 /**
  * Created by HOMIN on 2016-08-28.
  */
-public class RestAdapter extends RecyclerView.Adapter<RestAdapter.ViewHolder>{
+public class RestAdapter extends RecyclerView.Adapter<RestAdapter.ViewHolder> {
     private Context mContext;
-    private RestData restData;
+    private List<RestPojo> restPojoList;
 
-    public RestAdapter(RestData restData, Context mContext) {
-        this.restData = restData;
+    public RestAdapter(List<RestPojo> restPojoList, Context mContext) {
+        this.restPojoList = restPojoList;
         this.mContext = mContext;
 
     }
@@ -33,24 +34,25 @@ public class RestAdapter extends RecyclerView.Adapter<RestAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.titleTextView.setText(restData.getData().getChildren().get(position).getData().getTitle());
-        holder.subtitleTextView.setText(restData.getData().getChildren().get(position).getData().getSubreddit());
-        holder.subtitle2TextView.setText(restData.getData().getChildren().get(position).getData().getNumComments()+" points - "+
-                restData.getData().getChildren().get(position).getData().getScore()+" comments");
+        holder.titleTextView.setText(restPojoList.get(position).getTitle());
+        holder.subtitleTextView.setText(restPojoList.get(position).getAuthor() + " - " +
+                restPojoList.get(position).getSubreddit());
+        holder.subtitle2TextView.setText(restPojoList.get(position).getComments() + " points - " +
+                restPojoList.get(position).getPoints() + " comments");
 
 
         Glide.with(mContext)
-                .load(restData.getData().getChildren().get(position).getData().getThumbnail())
+                .load(restPojoList.get(position).getThumbnail())
                 .centerCrop()
                 .into(holder.thumbnailImageView);
     }
 
     @Override
     public int getItemCount() {
-        return restData.getData().getChildren().size();
+        return restPojoList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public View view;
         public TextView titleTextView;
@@ -65,7 +67,7 @@ public class RestAdapter extends RecyclerView.Adapter<RestAdapter.ViewHolder>{
             this.titleTextView = (TextView) view.findViewById(R.id.item_title);
             this.subtitleTextView = (TextView) view.findViewById(R.id.item_subtitle);
             this.subtitle2TextView = (TextView) view.findViewById(R.id.subtitle2);
-            this.thumbnailImageView = (ImageView)view.findViewById(R.id.thumbnail);
+            this.thumbnailImageView = (ImageView) view.findViewById(R.id.thumbnail);
         }
     }
 }

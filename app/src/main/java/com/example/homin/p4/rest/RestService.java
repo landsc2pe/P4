@@ -11,7 +11,8 @@ import retrofit2.http.Query;
  */
 public interface RestService {
     @GET("top.json")
-    Call<RestData> getRestPojo(@Query("after") String after, @Query("limit") String limit);
+    Call<RestData> getRestPojo(@Query("after") String after, @Query("limit") int limit);
+
 
 //
 
