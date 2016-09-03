@@ -2,6 +2,7 @@ package com.example.homin.p4.rest;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +42,15 @@ public class RestAdapter extends RecyclerView.Adapter<RestAdapter.ViewHolder> {
                 restPojoList.get(position).getPoints() + " comments");
 
 
-        Glide.with(mContext)
-                .load(restPojoList.get(position).getThumbnail())
-                .centerCrop()
-                .into(holder.thumbnailImageView);
+        String imageUrl = restPojoList.get(position).getThumbnail();
+        if(TextUtils.isEmpty(imageUrl)) {
+            Glide.clear(holder.thumbnailImageView);
+        } else {
+            Glide.with(mContext)
+                    .load(restPojoList.get(position).getThumbnail())
+                    .centerCrop()
+                    .into(holder.thumbnailImageView);
+        }
     }
 
     @Override

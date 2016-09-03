@@ -1,13 +1,11 @@
 
 package com.example.homin.p4.rest.pojo;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Generated;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
 public class Data_ {
@@ -96,15 +94,15 @@ public class Data_ {
     @SerializedName("hide_score")
     @Expose
     private boolean hideScore;
-    @SerializedName("edited")
-    @Expose
-    private boolean edited;
+//    @SerializedName("edited")
+//    @Expose
+//    private boolean edited;
     @SerializedName("link_flair_css_class")
     @Expose
     private Object linkFlairCssClass;
     @SerializedName("author_flair_css_class")
     @Expose
-    private Object authorFlairCssClass;
+    private String authorFlairCssClass;
     @SerializedName("downs")
     @Expose
     private int downs;
@@ -143,7 +141,7 @@ public class Data_ {
     private String name;
     @SerializedName("created")
     @Expose
-    private int created;
+    private float created;
     @SerializedName("url")
     @Expose
     private String url;
@@ -158,7 +156,7 @@ public class Data_ {
     private String title;
     @SerializedName("created_utc")
     @Expose
-    private int createdUtc;
+    private float createdUtc;
     @SerializedName("distinguished")
     @Expose
     private Object distinguished;
@@ -679,23 +677,27 @@ public class Data_ {
         this.hideScore = hideScore;
     }
 
-    /**
-     * 
-     * @return
-     *     The edited
-     */
-    public boolean isEdited() {
-        return edited;
-    }
-
-    /**
-     * 
-     * @param edited
-     *     The edited
-     */
-    public void setEdited(boolean edited) {
-        this.edited = edited;
-    }
+//    /**
+//     *
+//     * @return
+//     *     The edited
+//     */
+//    public boolean isEdited() {
+//        return edited;
+//    }
+//
+//    /**
+//     *
+//     * @param edited
+//     *     The edited
+//     */
+//    public void setEdited(boolean edited) {
+//        this.edited = edited;
+//    }
+//
+//    public void setEdited(int edited) {
+//        this.edited = edited == 0 ? false : true;
+//    }
 
     /**
      * 
@@ -720,7 +722,7 @@ public class Data_ {
      * @return
      *     The authorFlairCssClass
      */
-    public Object getAuthorFlairCssClass() {
+    public String getAuthorFlairCssClass() {
         return authorFlairCssClass;
     }
 
@@ -729,7 +731,7 @@ public class Data_ {
      * @param authorFlairCssClass
      *     The author_flair_css_class
      */
-    public void setAuthorFlairCssClass(Object authorFlairCssClass) {
+    public void setAuthorFlairCssClass(String authorFlairCssClass) {
         this.authorFlairCssClass = authorFlairCssClass;
     }
 
@@ -954,7 +956,7 @@ public class Data_ {
      * @return
      *     The created
      */
-    public int getCreated() {
+    public float getCreated() {
         return created;
     }
 
@@ -963,7 +965,7 @@ public class Data_ {
      * @param created
      *     The created
      */
-    public void setCreated(int created) {
+    public void setCreated(float created) {
         this.created = created;
     }
 
@@ -1044,7 +1046,7 @@ public class Data_ {
      * @return
      *     The createdUtc
      */
-    public int getCreatedUtc() {
+    public float getCreatedUtc() {
         return createdUtc;
     }
 
@@ -1053,7 +1055,7 @@ public class Data_ {
      * @param createdUtc
      *     The created_utc
      */
-    public void setCreatedUtc(int createdUtc) {
+    public void setCreatedUtc(float createdUtc) {
         this.createdUtc = createdUtc;
     }
 

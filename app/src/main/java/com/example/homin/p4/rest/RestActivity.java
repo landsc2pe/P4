@@ -9,12 +9,12 @@ import android.util.Log;
 
 import com.example.homin.p4.R;
 import com.example.homin.p4.base.util.LogTag;
-import com.example.homin.p4.rest.pojo.Child;
-import com.example.homin.p4.rest.pojo.RestData;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.homin.p4.rest.pojo.Child;
+import com.example.homin.p4.rest.pojo.RestData;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -95,8 +95,10 @@ public class RestActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<RestData> call, Throwable t) {
-                        if (LogTag.DEBUG) Log.d(TAG, "failed");
-
+                        if (LogTag.DEBUG) {
+                            Log.d(TAG, "failed : " + t.getMessage());
+                            t.printStackTrace();
+                        }
                     }
                 });
             }
@@ -109,6 +111,7 @@ public class RestActivity extends AppCompatActivity {
 
     private void setRetrofit() {
         retrofit = new Retrofit.Builder()
+                .client(RestOkhttpProvider.getInstance().getOkHttpClient())
                 .baseUrl("https://www.reddit.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -131,7 +134,10 @@ public class RestActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RestData> call, Throwable t) {
-                if (LogTag.DEBUG) Log.d(TAG, "failed");
+                if (LogTag.DEBUG) {
+                    Log.d(TAG, "failed : " + t.getMessage());
+                    t.printStackTrace();
+                }
 
             }
         });

@@ -1,4 +1,4 @@
-package com.example.homin.p4.rest.tutorial.okhttp;
+package com.example.homin.p4.rest.tutorial.okhttp_singleton;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -18,9 +18,9 @@ public class OkhttpTest {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://api.naver.com/aaa/bbb")
+                .url("http://api.naver.com/aaa/bbb?&name2=bbb")
                 .get()
-                .header("aa", "value")
+                .header("name1", "aaaa")
                 .header("bb", "value1")
                 .build();
     }
