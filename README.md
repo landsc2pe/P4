@@ -23,8 +23,8 @@ chrome://inspect
 #### Requests
 - https://api.github.com/users/octocat/repos
 - https://api.github.com/users/octocat/followers
-- https://api-dev.github.com/users/octocat/followers
-- https://api-qa.github.com/users/octocat/followers
+- http://api-dev.github.com/users/octocat/followers
+- http://api-qa.github.com/users/octocat/followers
 - https://api.github.com/users/octocat/orgs
 - https://api.github.com/repos/octocat/linguist
 - https://www.reddit.com/top.json?limit=5
