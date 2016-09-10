@@ -36,7 +36,7 @@ public class OkhttpAdapter {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        
+
                     }
                 }
         );

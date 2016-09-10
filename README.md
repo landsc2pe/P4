@@ -43,3 +43,10 @@ interface Callback {
     public void onError(Throwable t);
 }
 
+### data-binding, mvvm
+- https://developer.android.com/topic/libraries/data-binding/index.html
+- https://blog.stylingandroid.com/data-binding-part-1/
+
+### SOLID
+- https://realm.io/news/donn-felker-solid-part-1/
+- https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design
