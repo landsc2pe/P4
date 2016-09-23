@@ -26,7 +26,7 @@ public class DesignViewPagerAdapter extends FragmentStatePagerAdapter {
     int numOfTabs;
     //    private String tabTitles[] = new String[] { "Tab1", "Tab2", "Tab3" };
     private Fragment[] cacheFragment;
-    private int imageResId[] = {R.drawable.ic_one, R.drawable.ic_two, R.drawable.ic_three};
+    private int imageResId[] = {R.drawable.ic_action_name, R.drawable.ic_two, R.drawable.ic_three};
     private Context context;
     private BottomSheetBehavior bottomSheetBehavior;
     BottomSheetNaming naming;

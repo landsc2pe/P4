@@ -9,14 +9,16 @@ import android.util.Log;
 
 import com.example.homin.p4.R;
 import com.example.homin.p4.base.util.LogTag;
+import com.example.homin.p4.rest.interfaces.OkHttpRequest;
+import com.example.homin.p4.rest.interfaces.OkhttpListener;
+import com.example.homin.p4.rest.interfaces.RestService;
+import com.example.homin.p4.rest.pojo.Child;
+import com.example.homin.p4.rest.pojo.RestData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.homin.p4.rest.pojo.Child;
-import com.example.homin.p4.rest.pojo.RestData;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +53,8 @@ public class RestActivity extends AppCompatActivity {
         setRetrofit();
         setViews();
 
-//        setOkHttp();
+        OkHttpRequest request = new OkHttpConcreteRequest();
+        setOkHttp(request.webRequest(null).get());
     }
 
 
@@ -71,16 +74,16 @@ public class RestActivity extends AppCompatActivity {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 curSize = restAdapter.getItemCount();
-                if(LogTag.DEBUG)Log.d(TAG, restAfter);
-                call = service.getRestPojo(restAfter, 5);
-                if(LogTag.DEBUG) Log.d(TAG, "url : " + call.request().url());
+                if (LogTag.DEBUG) Log.d(TAG, restAfter);
+                call = service.getRestPojo(restAfter, 20);
+                if (LogTag.DEBUG) Log.d(TAG, "url : " + call.request().url());
                 call.enqueue(new Callback<RestData>() {
                     @Override
                     public void onResponse(Call<RestData> call, Response<RestData> response) {
-                        if(LogTag.DEBUG)Log.d(TAG, ""+curSize);
+                        if (LogTag.DEBUG) Log.d(TAG, "" + curSize);
                         restAfter = response.body().getData().getAfter();
-                        if(LogTag.DEBUG)Log.d(TAG, restAfter);
-                        restData =  response.body().getData().getChildren();
+                        if (LogTag.DEBUG) Log.d(TAG, restAfter);
+                        restData = response.body().getData().getChildren();
                         List<RestPojo> pojos = new ArrayList<>();
                         for (Child data : restData) {
                             pojos.add(new RestPojo(data.getData().getTitle(), data.getData()
@@ -89,7 +92,7 @@ public class RestActivity extends AppCompatActivity {
                         }
                         restPojoList.addAll(pojos);
                         restAdapter.notifyItemRangeInserted(curSize, restData.size());
-                        if(LogTag.DEBUG)Log.d(TAG, ""+curSize);
+                        if (LogTag.DEBUG) Log.d(TAG, "" + curSize);
 
                     }
 
@@ -111,12 +114,12 @@ public class RestActivity extends AppCompatActivity {
 
     private void setRetrofit() {
         retrofit = new Retrofit.Builder()
-                .client(RestOkhttpProvider.getInstance().getOkHttpClient())
+                .client(OkHttpProvider.getInstance().getOkHttpClient())
                 .baseUrl("https://www.reddit.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(RestService.class);
-        call = service.getRestPojo("", 5);
+        call = service.getRestPojo("", 20);
         call.enqueue(new Callback<RestData>() {
             @Override
             public void onResponse(Call<RestData> call, Response<RestData> response) {
@@ -141,22 +144,22 @@ public class RestActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
-    private void setOkHttp() {
-        OkHttpClient client = RestOkhttpProvider.getInstance().getOkHttpClient();
-        HttpUrl url = new HttpUrl.Builder()
-                .scheme("http")
-                .host("www.reddit.com")
-                .addPathSegment("top.jason")
-                .build();
+    private void setOkHttp(Request request) {
+        OkHttpAdapter adapter = new OkHttpAdapter(request);
+        adapter.makeCall(new OkhttpListener() {
+            @Override
+            public void onFail(okhttp3.Call call, IOException io) {
 
-        Request request = new Request.Builder()
-                .url(url)
-                .get()
-                .build();
+            }
+
+            @Override
+            public void onRes(okhttp3.Call call, okhttp3.Response response) {
+
+            }
+        });
     }
+
 
 }

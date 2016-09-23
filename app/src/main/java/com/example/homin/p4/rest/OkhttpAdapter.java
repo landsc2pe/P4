@@ -1,5 +1,50 @@
 package com.example.homin.p4.rest;
 
+<<<<<<< HEAD
+import com.example.homin.p4.rest.interfaces.OkhttpListener;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+/**
+ * Created by HOMIN on 2016-09-10.
+ **/
+public class OkHttpAdapter {
+
+
+    private OkhttpListener okhttpItemListner;
+
+    public OkHttpAdapter(Request request) {
+
+        okhttpClient(request);
+    }
+
+    private void okhttpClient(Request request) {
+        OkHttpClient client = OkHttpProvider.getInstance().getOkHttpClient();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                okhttpItemListner.onFail(call,e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                okhttpItemListner.onRes(call, response);
+            }
+        });
+
+    }
+
+
+    public void makeCall(OkhttpListener listener){
+        okhttpItemListner = listener;
+=======
 import okhttp3.*;
 
 import java.io.IOException;
@@ -49,5 +94,6 @@ public class OkhttpAdapter {
 
     public void setOkhttp(OkhttpInterface listener){
         okHttpListener = listener;
+>>>>>>> 1a066ba5700667bbd7bc01a7f4980fd53d416cf4
     }
 }

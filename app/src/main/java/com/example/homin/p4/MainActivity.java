@@ -14,6 +14,7 @@ import com.example.homin.p4.base.BaseAdapter;
 import com.example.homin.p4.base.util.ClickEvent;
 import com.example.homin.p4.base.util.ClickEventID;
 import com.example.homin.p4.design.DesignActivity;
+import com.example.homin.p4.selectmode.ActionModeActivity;
 import com.example.homin.p4.notification.NotiFragment;
 import com.example.homin.p4.rest.RestActivity;
 import com.example.homin.p4.webview.WebView;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         itemList.add("Notification");
         itemList.add("WebView");
         itemList.add("Http Communicate");
-        itemList.add("Test");
+        itemList.add("Contextual Action Mode");
         itemList.add("Test");
         itemList.add("Test");
         itemList.add("Test");
@@ -140,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         } else if (event.getId() == ClickEventID.ITEM_LIST_FIVE) {
+            Intent intent = new Intent(getApplicationContext(), ActionModeActivity.class);
+            startActivity(intent);
         }
 
     }

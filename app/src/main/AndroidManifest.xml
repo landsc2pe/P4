@@ -25,6 +25,9 @@
         <activity
             android:name=".rest.RestActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".selectmode.ActionModeActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

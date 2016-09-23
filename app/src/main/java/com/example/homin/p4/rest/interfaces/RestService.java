@@ -1,4 +1,4 @@
-package com.example.homin.p4.rest;
+package com.example.homin.p4.rest.interfaces;
 
 import com.example.homin.p4.rest.pojo.RestData;
 import retrofit2.Call;

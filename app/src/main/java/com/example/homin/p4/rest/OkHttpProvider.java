@@ -6,11 +6,11 @@ import okhttp3.logging.HttpLoggingInterceptor;
 /**
  * Created by HOMIN on 2016-08-27.
  */
-public class RestOkhttpProvider {
-    static RestOkhttpProvider instance;
+public class OkHttpProvider {
+    static OkHttpProvider instance;
     private OkHttpClient okHttpClient;
 
-    private RestOkhttpProvider() {
+    private OkHttpProvider() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -18,12 +18,12 @@ public class RestOkhttpProvider {
         okHttpClient = builder.build();
     }
 
-    public static synchronized RestOkhttpProvider getInstance() {
+    public static synchronized OkHttpProvider getInstance() {
 
         if (instance == null) {
-            synchronized (RestOkhttpProvider.class) {
+            synchronized (OkHttpProvider.class) {
                 if (instance == null)
-                    instance = new RestOkhttpProvider();
+                    instance = new OkHttpProvider();
             }
         }
         return instance;
