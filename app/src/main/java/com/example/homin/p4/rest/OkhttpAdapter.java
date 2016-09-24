@@ -1,6 +1,5 @@
 package com.example.homin.p4.rest;
 
-<<<<<<< HEAD
 import com.example.homin.p4.rest.interfaces.OkhttpListener;
 
 import java.io.IOException;
@@ -14,12 +13,10 @@ import okhttp3.Response;
 /**
  * Created by HOMIN on 2016-09-10.
  **/
-public class OkHttpAdapter {
-
-
+public class OkhttpAdapter {
     private OkhttpListener okhttpItemListner;
 
-    public OkHttpAdapter(Request request) {
+    public OkhttpAdapter(Request request) {
 
         okhttpClient(request);
     }
@@ -42,58 +39,7 @@ public class OkHttpAdapter {
     }
 
 
-    public void makeCall(OkhttpListener listener){
+    public void makeCall(OkhttpListener listener) {
         okhttpItemListner = listener;
-=======
-import okhttp3.*;
-
-import java.io.IOException;
-
-/**
- * Created by jayjay on 2016. 9. 10..
- */
-public class OkhttpAdapter {
-    private OkhttpInterface okHttpListener;
-    String address;
-
-    public OkhttpAdapter(String address) {
-        this.address = address;
-
-        okhttpClient(address);
-
-    }
-
-    private void okhttpClient(String address) {
-        OkHttpClient client = RestOkhttpProvider.getInstance().getOkHttpClient();
-
-        Request request = new Request.Builder()
-                .url(address)
-                .get()
-                .build();
-
-
-        client.newCall(request).enqueue(
-                new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        okHttpListener.onFailed(call,e);
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-
-                    }
-                }
-        );
-    }
-
-    interface OkhttpInterface{
-        void onFailed(Call call, IOException e);
-        void onResponse(Call call, Response response);
-    }
-
-    public void setOkhttp(OkhttpInterface listener){
-        okHttpListener = listener;
->>>>>>> 1a066ba5700667bbd7bc01a7f4980fd53d416cf4
     }
 }

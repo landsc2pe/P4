@@ -147,7 +147,7 @@ public class RestActivity extends AppCompatActivity {
     }
 
     private void setOkHttp(Request request) {
-        OkHttpAdapter adapter = new OkHttpAdapter(request);
+        OkhttpAdapter adapter = new OkhttpAdapter(request);
         adapter.makeCall(new OkhttpListener() {
             @Override
             public void onFail(okhttp3.Call call, IOException io) {
