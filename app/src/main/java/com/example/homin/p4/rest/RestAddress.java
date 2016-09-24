@@ -5,7 +5,6 @@ package com.example.homin.p4.rest;
  **/
 
 public class RestAddress {
-
     static String webAdress = "";
     static String serverAdress = "";
 }

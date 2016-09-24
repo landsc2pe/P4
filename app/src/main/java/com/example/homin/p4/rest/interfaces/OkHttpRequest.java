@@ -9,7 +9,7 @@ import okhttp3.RequestBody;
  **/
 
 public interface OkHttpRequest {
-
+    // FIXME: 2016. 9. 24.
     OkHttpConcreteRequest.OkHttpAssist webRequest(RequestBody body);
 
     OkHttpConcreteRequest.OkHttpAssist serverRequest(RequestBody body);

@@ -12,7 +12,6 @@ import okhttp3.RequestBody;
  **/
 
 public class OkHttpConcreteRequest implements OkHttpRequest {
-
     @Override
     public OkHttpAssist webRequest(RequestBody body) {
         return new OkHttpAssist(RestAddress.webAdress, null);
@@ -27,7 +26,6 @@ public class OkHttpConcreteRequest implements OkHttpRequest {
     public OkHttpAssist apiRequest(RequestBody body) {
         return new OkHttpAssist("adress", null);
     }
-
 
 
     public class OkHttpAssist {

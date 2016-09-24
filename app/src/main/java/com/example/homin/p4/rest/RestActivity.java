@@ -53,8 +53,11 @@ public class RestActivity extends AppCompatActivity {
         setRetrofit();
         setViews();
 
-        OkHttpRequest request = new OkHttpConcreteRequest();
-        setOkHttp(request.webRequest(null).get());
+        OkHttpRequest request1 = new OkHttpConcreteRequest();
+        setOkHttp(request1.webRequest(null).get());
+
+        OkHttpRequest request2 = new OkHttpConcreteRequest();
+        setOkHttp(request2.webRequest(null).get());
     }
 
 
