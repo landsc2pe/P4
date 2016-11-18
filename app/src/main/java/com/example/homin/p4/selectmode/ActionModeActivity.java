@@ -3,7 +3,7 @@ package com.example.homin.p4.selectmode;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,10 +37,10 @@ public class ActionModeActivity extends AppCompatActivity implements ActionModeA
         adapter.setSelectionListener(this);
         adapter.restoreInstanceState(savedInstanceState);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 5);
-        list = (DragSelectRecyclerView) findViewById(R.id.list);
-        list.setLayoutManager(layoutManager);
-        list.setAdapter(adapter);
+//        GridLayoutManager layoutManager = new GridLayoutManager(this, 5);
+//        list = (DragSelectRecyclerView) findViewById(R.id.list);
+//        list.setLayoutManager(layoutManager);
+//        list.setAdapter(adapter);
     }
 
     private void init() {
@@ -58,6 +58,8 @@ public class ActionModeActivity extends AppCompatActivity implements ActionModeA
     }
 
     private void setToolBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

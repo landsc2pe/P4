@@ -1,4 +1,4 @@
-package com.example.homin.p4.rest;
+package com.example.homin.p4.rest.retrofit;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

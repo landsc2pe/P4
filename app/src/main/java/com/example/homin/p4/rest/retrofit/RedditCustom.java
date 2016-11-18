@@ -1,19 +1,19 @@
-package com.example.homin.p4.rest;
+package com.example.homin.p4.rest.retrofit;
 
 /**
  * Created by HOMIN on 2016-08-30.
  */
-public class RestPojo {
+public class RedditCustom {
 
-    String title;
-    String author;
-    String subreddit;
-    String thumbnail;
+    private String title;
+    private String author;
+    private String subreddit;
+    private String thumbnail;
 
-    int points;
-    int comments;
+    private int points;
+    private int comments;
 
-    public RestPojo(String title, String author, String subreddit, int points, int comments, String thumbnail) {
+    public RedditCustom(String title, String author, String subreddit, int points, int comments, String thumbnail) {
         this.title = title;
         this.author = author;
         this.subreddit = subreddit;

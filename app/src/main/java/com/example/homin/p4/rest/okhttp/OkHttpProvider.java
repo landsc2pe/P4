@@ -1,4 +1,4 @@
-package com.example.homin.p4.rest;
+package com.example.homin.p4.rest.okhttp;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -7,7 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * Created by HOMIN on 2016-08-27.
  */
 public class OkHttpProvider {
-    static OkHttpProvider instance;
+    private static OkHttpProvider instance;
     private OkHttpClient okHttpClient;
 
     private OkHttpProvider() {

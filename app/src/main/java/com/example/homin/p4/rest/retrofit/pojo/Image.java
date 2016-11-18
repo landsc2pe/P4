@@ -1,5 +1,5 @@
 
-package com.example.homin.p4.rest.pojo;
+package com.example.homin.p4.rest.retrofit.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

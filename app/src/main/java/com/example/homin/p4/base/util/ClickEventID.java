@@ -16,5 +16,5 @@ public enum ClickEventID {
     ITEM_BOTTOM_ONE,
     ITEM_BOTTOM_TWO,
     ITEM_BOTTOM_THREE,
-    ;
+    ITEM_LIST_SIX;
 }

@@ -14,9 +14,10 @@ import com.example.homin.p4.base.BaseAdapter;
 import com.example.homin.p4.base.util.ClickEvent;
 import com.example.homin.p4.base.util.ClickEventID;
 import com.example.homin.p4.design.DesignActivity;
+import com.example.homin.p4.rest.okhttp.OkHttpActivity;
 import com.example.homin.p4.selectmode.ActionModeActivity;
 import com.example.homin.p4.notification.NotiFragment;
-import com.example.homin.p4.rest.RestActivity;
+import com.example.homin.p4.rest.retrofit.RetrofitActivity;
 import com.example.homin.p4.webview.WebView;
 
 import java.util.ArrayList;
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         itemList.add("Design Support Library");
         itemList.add("Notification");
         itemList.add("WebView");
-        itemList.add("Http Communicate");
+        itemList.add("Retrofit, Reddit");
+        itemList.add("OkHttp, Gists");
         itemList.add("Contextual Action Mode");
         itemList.add("Test");
         itemList.add("Test");
@@ -105,7 +107,9 @@ public class MainActivity extends AppCompatActivity {
                     case 4:
                         setClickInfo(new ClickEvent(ClickEventID.ITEM_LIST_FIVE));
                         break;
-
+                    case 5:
+                        setClickInfo(new ClickEvent(ClickEventID.ITEM_LIST_SIX));
+                        break;
                     default:
                         Snackbar.make(getCurrentFocus(), "It`s not ready yet", Snackbar.LENGTH_SHORT).show();
                 }
@@ -137,13 +141,17 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
 
         } else if (event.getId() == ClickEventID.ITEM_LIST_FOUR) {
-            Intent intent = new Intent(getApplicationContext(), RestActivity.class);
+            Intent intent = new Intent(getApplicationContext(), RetrofitActivity.class);
             startActivity(intent);
 
         } else if (event.getId() == ClickEventID.ITEM_LIST_FIVE) {
-            Intent intent = new Intent(getApplicationContext(), ActionModeActivity.class);
+            Intent intent = new Intent(getApplicationContext(), OkHttpActivity.class);
             startActivity(intent);
-        }
+
+        } else if (event.getId() == ClickEventID.ITEM_LIST_SIX) {
+        Intent intent = new Intent(getApplicationContext(), ActionModeActivity.class);
+        startActivity(intent);
+    }
 
     }
 
