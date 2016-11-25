@@ -5,12 +5,13 @@ package com.example.homin.p4.rest.okhttp;
  **/
 
 public class OkHttpCustom {
-    private String fileName, language, htmlUrl;
+    private String fileName, language, getHtmlUrl, postHtmlUrl;
 
-    public OkHttpCustom(String htmlUrl) {
+    public OkHttpCustom(String getHtmlUrl, String postHtmlUrl) {
 //        this.fileName = fileName;
 //        this.language = language;
-        this.htmlUrl = htmlUrl;
+        this.postHtmlUrl = postHtmlUrl;
+        this.getHtmlUrl = getHtmlUrl;
     }
 
     public String getFileName() {
@@ -29,11 +30,19 @@ public class OkHttpCustom {
         this.language = language;
     }
 
-    public String getHtmlUrl() {
-        return htmlUrl;
+    public String getGetHtmlUrl() {
+        return getHtmlUrl;
     }
 
-    public void setHtmlUrl(String htmlUrl) {
-        this.htmlUrl = htmlUrl;
+    public void setGetHtmlUrl(String getHtmlUrl) {
+        this.getHtmlUrl = getHtmlUrl;
+    }
+
+    public String getPostHtmlUrl() {
+        return postHtmlUrl;
+    }
+
+    public void setPostHtmlUrl(String postHtmlUrl) {
+        this.postHtmlUrl = postHtmlUrl;
     }
 }

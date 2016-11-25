@@ -17,17 +17,17 @@ import java.util.List;
  */
 public class OkHttpAdapter extends RecyclerView.Adapter<OkHttpAdapter.ViewHolder> {
     private Context mContext;
-    private List<OkHttpCustom> gistsData;
+    private List<OkHttpCustom> customData;
     private OnItemClickListener itemClickListener;
 
-    public OkHttpAdapter(List<OkHttpCustom> gistsData, Context mContext) {
-        this.gistsData = gistsData;
+    public OkHttpAdapter(List<OkHttpCustom> customData, Context mContext) {
+        this.customData = customData;
         this.mContext = mContext;
 
     }
 
-    public void setGistsUpdate(List<OkHttpCustom> gistsData) {
-        this.gistsData = gistsData;
+    public void setCustomData(List<OkHttpCustom> customData) {
+        this.customData = customData;
     }
 
     @Override
@@ -38,35 +38,43 @@ public class OkHttpAdapter extends RecyclerView.Adapter<OkHttpAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.titleTextView.setText(gistsData.get(position).getHtmlUrl());
+        if (customData.get(position).getGetHtmlUrl() == null) {
+            holder.titleTextView.setText(customData.get(position).getPostHtmlUrl());
+        } else {
+            holder.titleTextView.setText(customData.get(position).getGetHtmlUrl());
+        }
 //        holder.subtitleTextView.setText(gistsData.get(position).getFileName());
 //        holder.subtitle2TextView.setText(gistsData.get(position).getLanguage());
         holder.titleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             itemClickListener.onClick(gistsData.get(position).getHtmlUrl());
+                if (customData.get(position).getGetHtmlUrl() == null) {
+                    itemClickListener.onClick(customData.get(position).getPostHtmlUrl());
+                } else {
+                    itemClickListener.onClick(customData.get(position).getGetHtmlUrl());
+                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if(gistsData == null){
+        if (customData == null) {
             return 0;
         } else {
-            return gistsData.size();
+            return customData.size();
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         public View view;
-        public TextView titleTextView;
-        public TextView subtitleTextView;
-        public TextView subtitle2TextView;
-        public ImageView thumbnailImageView;
+        TextView titleTextView;
+        TextView subtitleTextView;
+        TextView subtitle2TextView;
+        ImageView thumbnailImageView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             this.view = itemView;
@@ -77,7 +85,7 @@ public class OkHttpAdapter extends RecyclerView.Adapter<OkHttpAdapter.ViewHolder
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener) {
         itemClickListener = listener;
     }
 }
