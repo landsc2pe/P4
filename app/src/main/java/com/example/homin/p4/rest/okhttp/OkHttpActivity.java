@@ -92,7 +92,22 @@ public class OkHttpActivity extends AppCompatActivity {
         });
     }
 
+    // TODO: 2016. 11. 19. POST https://api.github.com/gists
+    // In Content-Body
+    /*
+    {
+        "description": "the description for this gist",
+            "public": true,
+            "files": {
+        "file1.txt": {
+            "content": "String file contents"
+        }
+    }
+    }
+    */
 
+    // TODO: 2016. 11. 19. GET /users/jayjaykim/followers 
+    // TODO: 2016. 11. 19. host : api.github.com
     private Request setOkHttp(String Id) {
         HttpUrl httpUrl = new HttpUrl.Builder()
                 .scheme("https")
