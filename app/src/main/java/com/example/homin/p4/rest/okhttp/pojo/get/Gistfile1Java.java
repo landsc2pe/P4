@@ -1,5 +1,5 @@
 
-package com.example.homin.p4.rest.okhttp.pojo;
+package com.example.homin.p4.rest.okhttp.pojo.get;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;

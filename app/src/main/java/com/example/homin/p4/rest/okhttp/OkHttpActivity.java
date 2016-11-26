@@ -7,15 +7,26 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.homin.p4.R;
-import com.example.homin.p4.rest.okhttp.pojo.GistDatum;
+import com.example.homin.p4.base.util.LogTag;
+import com.example.homin.p4.rest.okhttp.decorator.UrlBase;
+import com.example.homin.p4.rest.okhttp.decorator.UrlHost;
+import com.example.homin.p4.rest.okhttp.decorator.UrlPathSegment;
+import com.example.homin.p4.rest.okhttp.decorator.UrlScheme;
+import com.example.homin.p4.rest.okhttp.pojo.get.GistDatum;
+import com.example.homin.p4.rest.okhttp.pojo.post.PostRespond;
 import com.example.homin.p4.webview.WebView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -25,8 +36,10 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -35,36 +48,25 @@ import okhttp3.Response;
 
 public class OkHttpActivity extends AppCompatActivity {
     public static final String TAG = OkHttpActivity.class.getSimpleName();
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private OkHttpAdapter okHttpAdapter;
     private EditText editText;
     private List<OkHttpCustom> customData;
-    private android.webkit.WebView myWebView;
+    private OkHttpClient client;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rest_okhttp_activity);
-        myWebView = (android.webkit.WebView) findViewById(R.id.webview);
 
         customData = new ArrayList<>();
         setView();
     }
 
     private void setView() {
-        setButton();
         setEditText();
         setRecyclerView();
         setOnClickListener();
-    }
-
-    private void setButton() {
-        Button button = (Button) findViewById(R.id.rest_okhttp_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getGists(setOkHttp(editText.getText().toString()));
-            }
-        });
     }
 
     private void setEditText() {
@@ -72,11 +74,47 @@ public class OkHttpActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        okHttpAdapter = new OkHttpAdapter(customData, getApplicationContext());
+        okHttpAdapter = new OkHttpAdapter(null, getApplicationContext());
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rest_okhttp_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(okHttpAdapter);
+
+
+        Button button = (Button) findViewById(R.id.rest_okhttp_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (customData.size() > 0) {
+                    customData.clear();
+                    okHttpAdapter.setCustomData(null);
+                    okHttpAdapter.notifyDataSetChanged();
+                    Toast.makeText(getApplicationContext(), "clear", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    if (LogTag.DEBUG) Log.d(TAG, "Posted !");
+                    if (editText.getText().length() == 0) {
+                        postGists(postRequest(setJSON("haha", "hihihi")));
+                    } else {
+                        getGists(getRequest(editText.getText().toString()));
+                    }
+                }
+
+
+            }
+        });
+
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                customData.clear();
+                okHttpAdapter.setCustomData(null);
+                okHttpAdapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(), "clear", Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+        });
     }
 
     private void setOnClickListener() {
@@ -109,22 +147,63 @@ public class OkHttpActivity extends AppCompatActivity {
     // TODO: 2016. 11. 19. GET /users/jayjaykim/followers 
     // TODO: 2016. 11. 19. host : api.github.com
     private Request setOkHttp(String Id) {
-        HttpUrl httpUrl = new HttpUrl.Builder()
-                .scheme("https")
-                .host("api.github.com")
-                .addPathSegment("users")
-                .addPathSegment(Id)
-                .addPathSegment("gists")
-                .build();
+        return null;
+    }
+
+    private JSONObject setJSON(String fileName, String contentBody) {
+        JSONObject object = new JSONObject();
+        JSONObject file = new JSONObject();
+        JSONObject content = new JSONObject();
+
+        try {
+            content.put("content", contentBody);
+            file.put(fileName, content);
+
+            object.put("description", "A description of the gist.");
+            object.put("public", true);
+            object.put("files", file);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return object;
+    }
+
+
+    private Request getRequest(String Id) {
+
+        UrlBase url = new UrlBase();
+        url = new UrlScheme(url, url.getHttp());
+        url = new UrlHost(url, url.getGithubHost());
+        url = new UrlPathSegment(url, url.getSegmentUser());
+        url = new UrlPathSegment(url, "/" + Id);
+        url = new UrlPathSegment(url, url.getSegmentGists());
+
+        if(LogTag.DEBUG)Log.d(TAG, "Url Base : " + url);
 
         return new Request.Builder()
-                .url(httpUrl)
+                .url(url.getUrl())
                 .get()
                 .build();
     }
 
+    private Request postRequest(JSONObject object) {
+        HttpUrl httpUrl = new HttpUrl.Builder()
+                .scheme("https")
+                .host("api.github.com")
+                .addPathSegment("gists")
+                .build();
+
+        RequestBody requestBody = RequestBody.create(JSON, object.toString());
+
+        return new Request.Builder()
+                .url(httpUrl)
+                .post(requestBody)
+                .build();
+    }
+
     private void getGists(final Request request) {
-        OkHttpClient client = OkHttpProvider.getInstance().getOkHttpClient();
+        client = OkHttpProvider.getInstance().getOkHttpClient();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -138,8 +217,7 @@ public class OkHttpActivity extends AppCompatActivity {
                 List<GistDatum> gistsData = new Gson().fromJson(response.body().charStream(), collectionType);
 //                if(LogTag.DEBUG) Log.d(TAG, "Size : "+ gistsData.get(0).getFiles().getGistfile1Java().getFilename());
                 for (GistDatum datum : gistsData) {
-                    customData.add(new OkHttpCustom(
-                            datum.getHtmlUrl()));
+                    customData.add(new OkHttpCustom(datum.getHtmlUrl(), null));
 
                     //파일이 안불려짐... ㄴ미;ㅇ러ㅣㅁ;날엄ㄴ;ㅣㅏ
                 }
@@ -147,8 +225,36 @@ public class OkHttpActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        okHttpAdapter.setGistsUpdate(customData);
+                        okHttpAdapter.setCustomData(customData);
                         okHttpAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+    }
+
+    private void postGists(final Request request) {
+        client = OkHttpProvider.getInstance().getOkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (LogTag.DEBUG) Log.d(TAG, "Failed !!!");
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (LogTag.DEBUG) Log.d(TAG, "Posted !!!");
+                PostRespond gistsData = new Gson().fromJson(response.body().charStream(), PostRespond.class);
+//                if(LogTag.DEBUG) Log.d(TAG, "Size : "+ gistsData.get(0).getFiles().getGistfile1Java().getFilename());
+                customData.add(new OkHttpCustom(null, gistsData.getHtmlUrl()));
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        okHttpAdapter.setCustomData(customData);
+                        okHttpAdapter.notifyDataSetChanged();
+
                     }
                 });
             }
