@@ -21,6 +21,8 @@ import com.example.homin.p4.rest.okhttp.decorator.UrlPathSegment;
 import com.example.homin.p4.rest.okhttp.decorator.UrlScheme;
 import com.example.homin.p4.rest.okhttp.pojo.get.GistDatum;
 import com.example.homin.p4.rest.okhttp.pojo.post.PostRespond;
+import com.example.homin.p4.rest.okhttp.pojo.post.ex1.File;
+import com.example.homin.p4.rest.okhttp.pojo.post.ex1.FileCreationBody;
 import com.example.homin.p4.webview.WebView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,6 +33,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
@@ -151,6 +154,28 @@ public class OkHttpActivity extends AppCompatActivity {
     }
 
     private JSONObject setJSON(String fileName, String contentBody) {
+        /*
+        {
+          "description": "the description for this gist",
+          "public": true,
+          "files": [
+              {
+              "file_name": "name1",
+              "content": "contents"
+              },
+              {
+              "file_name": "name2",
+              "content": "contents"
+              }
+          ]
+        }
+         */
+//        FileCreationBody body = new FileCreationBody();
+//        body.setDescription("A description of the gist.");
+//        body.setPublic(true);
+//        body.setFiles(Arrays.asList(new File(fileName, contentBody)));
+//        String json = new Gson().toJson(body);
+
         JSONObject object = new JSONObject();
         JSONObject file = new JSONObject();
         JSONObject content = new JSONObject();
