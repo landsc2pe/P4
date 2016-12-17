@@ -14,6 +14,7 @@ import com.example.homin.p4.base.BaseAdapter;
 import com.example.homin.p4.base.util.ClickEvent;
 import com.example.homin.p4.base.util.ClickEventID;
 import com.example.homin.p4.design.DesignActivity;
+import com.example.homin.p4.drawer.DrawerActivity;
 import com.example.homin.p4.rest.okhttp.OkHttpActivity;
 import com.example.homin.p4.selectmode.ActionModeActivity;
 import com.example.homin.p4.notification.NotiFragment;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         itemList.add("Retrofit, Reddit");
         itemList.add("OkHttp, Gists");
         itemList.add("Contextual Action Mode");
-        itemList.add("Test");
+        itemList.add("Drawer Test");
         itemList.add("Test");
         itemList.add("Test");
         itemList.add("Test");
@@ -110,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
                     case 5:
                         setClickInfo(new ClickEvent(ClickEventID.ITEM_LIST_SIX));
                         break;
+                    case 6:
+                        setClickInfo(new ClickEvent(ClickEventID.ITEM_LIST_SEVEN));
+                        break;
                     default:
                         Snackbar.make(getCurrentFocus(), "It`s not ready yet", Snackbar.LENGTH_SHORT).show();
                 }
@@ -149,9 +153,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         } else if (event.getId() == ClickEventID.ITEM_LIST_SIX) {
-        Intent intent = new Intent(getApplicationContext(), ActionModeActivity.class);
-        startActivity(intent);
-    }
+            Intent intent = new Intent(getApplicationContext(), ActionModeActivity.class);
+            startActivity(intent);
+
+        } else if (event.getId() == ClickEventID.ITEM_LIST_SEVEN) {
+            Intent intent = new Intent(getApplicationContext(), DrawerActivity.class);
+            startActivity(intent);
+        }
 
     }
 

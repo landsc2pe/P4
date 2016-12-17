@@ -11,4 +11,5 @@
     <string name="itemContents1">1.Test</string>
     <string name="itemContents2">2.EditText</string>
     <string name="itemContents3">3.BottomSheet</string>
+    <string name="item1">item</string>
 </resources>
